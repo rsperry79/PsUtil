@@ -1,0 +1,1 @@
+﻿[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Intended", Scope = "member", Target = "~M:Utilities.TsvCleaner.Tests.TsvCleanerTests.RunProcessAsync(System.String,System.String,System.Boolean)~System.Threading.Tasks.Task{System.Int32}")]

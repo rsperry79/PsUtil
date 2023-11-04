@@ -1,0 +1,3 @@
+﻿[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Intended", Scope = "type", Target = "~T:Psu.Tools.ps.AddQualification.Options")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Intended", Scope = "type", Target = "~T:Psu.Tools.ps.AddQualification.ArgumentOptions")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Intended", Scope = "member", Target = "~M:Psu.Tools.ps.AddQualification.Program.Main(System.String[])")]

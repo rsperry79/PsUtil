@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ps.Common.TokenFetcher": {
+      "commandName": "Project",
+      "commandLineArgs": "-o output.txt -c"
+    }
+  }
+}
