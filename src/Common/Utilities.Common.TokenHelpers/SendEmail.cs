@@ -12,20 +12,14 @@ namespace Utilities.Common.TokenHelpers
         /// <summary>
         /// Defines the settings
         /// </summary>
-        private readonly SmtpSettings settings;
+        private readonly SmtpSettings Settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SendEmail"/> class.
         /// </summary>
-        public SendEmail()
+        public SendEmail(SmtpSettings settings)
         {
-            this.settings = new SmtpSettings
-            {
-                Host = "smtp-mail.outlook.com",
-                Port = 587,
-                Username = "TuringNotifier@outlook.com",
-                Code = "exxact@1",
-            };
+            Settings = settings;
         }
 
         /// <summary>
@@ -42,16 +36,16 @@ namespace Utilities.Common.TokenHelpers
             {
                 using (MailMessage mail = new MailMessage())
                 {
-                    mail.From = new MailAddress(this.settings.Username);
+                    mail.From = new MailAddress(Settings.Username);
                     mail.To.Add(to);
                     mail.Subject = subject;
                     mail.Body = body;
-                    mail.ReplyToList.Add(new MailAddress(this.settings.Username));
+                    mail.ReplyToList.Add(new MailAddress(Settings.Username));
 
-                    SmtpClient smtp = new SmtpClient(this.settings.Host, this.settings.Port)
+                    SmtpClient smtp = new SmtpClient(Settings.Host, Settings.Port)
                     {
                         UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(this.settings.Username, this.settings.Code),
+                        Credentials = new NetworkCredential(Settings.Username, Settings.Code),
                         Timeout = 60000, // 60 seconds
                         EnableSsl = true // Outlook.com and Gmail require SSL
                     };

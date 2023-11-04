@@ -1,7 +1,6 @@
-﻿#pragma warning disable SA1300 // Naming Styles
-#pragma warning disable IDE1006 // Naming Styles
+﻿#pragma warning disable IDE1006 // Naming Styles
 
-namespace Utilities.Common.Helpers
+namespace Utilities.Common.Helpers.Secrets
 {
     /// <summary>
     /// Defines the <see cref="AuthFile" />.
@@ -30,4 +29,3 @@ namespace Utilities.Common.Helpers
     }
 }
 #pragma warning restore IDE1006 // Naming Styles
-#pragma warning restore SA1300 // Naming Styles

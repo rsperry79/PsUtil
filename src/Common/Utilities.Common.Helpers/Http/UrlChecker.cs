@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net;
 
-namespace Utilities.Common.Helpers
+using Utilities.Common.Helpers.Setup;
+
+namespace Utilities.Common.Helpers.Http
 {
     /// <summary>
     /// Defines the <see cref="UrlChecker" />.

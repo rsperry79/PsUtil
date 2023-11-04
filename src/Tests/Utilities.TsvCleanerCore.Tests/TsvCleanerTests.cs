@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Utilities.TsvCleaner.Tests
+namespace Utilities.TsvCleanerCore.Tests
 {
     /// <summary>
     /// Defines the <see cref="TsvCleanerTests" />.
@@ -39,7 +39,7 @@ namespace Utilities.TsvCleaner.Tests
         private const int LargeTestFileCount = 3167;
 
         /// <summary>
-        /// Tests a file with know surrogates and controil chars using a parallel foreach method.
+        /// Tests a file with know surrogates and control chars using a parallel foreach method.
         /// </summary>
         /// <returns>The <see cref="Task"/>.</returns>
         [TestMethod]
@@ -70,12 +70,12 @@ namespace Utilities.TsvCleaner.Tests
             }
             else
             {
-                Assert.Fail("A failure code was retuned.");
+                Assert.Fail("A failure code was returned.");
             }
         }
 
         /// <summary>
-        /// Tests a file with know surrogates and controil chars using a standard foreach method.
+        /// Tests a file with know surrogates and control chars using a standard foreach method.
         /// </summary>
         /// <returns>The <see cref="Task"/>.</returns>
         [TestMethod]
@@ -115,7 +115,7 @@ namespace Utilities.TsvCleaner.Tests
         /// </summary>
         /// <returns>The <see cref="Task"/>.</returns>
         [TestMethod]
-        public async Task TsvCleanerValidateReturnParalleWithLarge()
+        public async Task TsvCleanerValidateReturnParallelWithLarge()
         {
             int count = 0;
             string outputFile = "largeTestResultsParallel.tsv";
@@ -212,7 +212,7 @@ namespace Utilities.TsvCleaner.Tests
                 process.Dispose();
             };
 
-            process.Start();
+            _ = process.Start();
 
             return tcs.Task;
         }

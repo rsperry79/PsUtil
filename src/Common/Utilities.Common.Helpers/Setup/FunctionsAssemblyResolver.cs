@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Utilities.Common.Helpers
+namespace Utilities.Common.Helpers.Setup
 {
     /// <summary>
     /// Defines the <see cref="FunctionsAssemblyResolver" />.

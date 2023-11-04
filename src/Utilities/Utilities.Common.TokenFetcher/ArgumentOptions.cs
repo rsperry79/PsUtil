@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace ps.Common.TokenFetcher
+namespace Utilities.CoreConsole.TokenFetcher
 {
     // Define a class to receive parsed values
     internal class ArguementOptions

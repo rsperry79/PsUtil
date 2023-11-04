@@ -16,7 +16,7 @@ namespace Frameworks
 
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<Options>(args)
+            _ = Parser.Default.ParseArguments<Options>(args)
             .WithParsed<Options>(options =>
             {
                 std = GetStdFrameworks();
@@ -24,7 +24,6 @@ namespace Frameworks
                 File.WriteAllLines(options.StdResults, std);
                 File.WriteAllLines(options.CoreResults, core);
             });
-
 
         }
 
@@ -38,7 +37,7 @@ namespace Frameworks
 
             for (int i = 1; i <= version_names.Length - 1; i++)
             {
-                string temp_name = "Microsoft .NET Framework " + version_names[i].ToString() + "  SP" + installed_versions.OpenSubKey(version_names[i]).GetValue("SP");
+                string temp_name = $"Microsoft .NET Framework {version_names[i]}  SP{installed_versions.OpenSubKey(version_names[i]).GetValue("SP")}";
                 display_framwork_name.Add(temp_name);
             }
 
@@ -57,7 +56,7 @@ namespace Frameworks
 
                 for (int i = 1; i <= version_names.Length - 1; i++)
                 {
-                    string temp_name = "Microsoft .NET Core Framework " + version_names[i].ToString() + "  SP" + installed_versions.OpenSubKey(version_names[i]).GetValue("SP");
+                    string temp_name = $"Microsoft .NET Core Framework {version_names[i]}  SP{installed_versions.OpenSubKey(version_names[i]).GetValue("SP")}";
                     display_framwork_name.Add(temp_name);
                 }
             }

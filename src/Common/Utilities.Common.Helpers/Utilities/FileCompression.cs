@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace Utilities.Common.Helpers
+namespace Utilities.Common.Helpers.Utilities
 {
     /// <summary>
     /// Helper class to compress/decompress a file.
@@ -27,7 +27,7 @@ namespace Utilities.Common.Helpers
                     // already compressed files.
                     if ((File.GetAttributes(fileInfo.FullName)
                         & FileAttributes.Hidden)
-                        != FileAttributes.Hidden & fileInfo.Extension != ".gz")
+                        != FileAttributes.Hidden & string.Compare(fileInfo.Extension, ".gz", StringComparison.Ordinal) != 0)
                     {
                         // Create the compressed file.
                         outfileName = $"{fileInfo.Name}.gz";
@@ -42,11 +42,7 @@ namespace Utilities.Common.Helpers
                                 // the compression stream.
                                 inFile.CopyTo(compress);
 
-                                Console.WriteLine(
-                                    "Compressed {0} from {1} to {2} bytes.",
-                                    fileInfo.Name,
-                                    fileInfo.Length.ToString(),
-                                    outFile.Length.ToString());
+                                Console.WriteLine($"Compressed {fileInfo.Name} from {fileInfo.Length} to {outFile.Length} bytes.");
                             }
                         }
                     }
@@ -57,7 +53,7 @@ namespace Utilities.Common.Helpers
         }
 
         /// <summary>
-        /// Decompresess a file.
+        /// Decompress a file.
         /// </summary>
         /// <param name="fileName">Compressed file.</param>
         /// <returns>The <see cref="string"/>.</returns>

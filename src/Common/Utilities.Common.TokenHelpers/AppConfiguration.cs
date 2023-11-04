@@ -1,8 +1,8 @@
-﻿using System.IO;
-using System.Reflection;
-
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Client;
+
+using System.IO;
+using System.Reflection;
 
 namespace Utilities.Common.TokenHelpers
 {

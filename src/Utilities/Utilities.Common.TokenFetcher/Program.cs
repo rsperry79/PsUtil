@@ -4,9 +4,10 @@ using System;
 using System.IO;
 
 using Utilities.Common.Helpers;
+using Utilities.Common.Helpers.Setup;
 using Utilities.Common.TokenHelpers;
 
-namespace ps.Common.TokenFetcher
+namespace Utilities.CoreConsole.TokenFetcher
 {
     public class Program
     {
@@ -16,8 +17,8 @@ namespace ps.Common.TokenFetcher
 
             try
             {
-                Parser.Default.ParseArguments<ArguementOptions>(args)
-                            .WithParsed<ArguementOptions>(options =>
+                _ = Parser.Default.ParseArguments<ArguementOptions>(args)
+                            .WithParsed(options =>
                             {
                                 Log.SetLogFileLocation(options.LogFile.Trim());
                                 TokenGet getter = new TokenGet();
@@ -29,7 +30,7 @@ namespace ps.Common.TokenFetcher
                                 }
                                 else
                                 {
-                                    getter.DisplaySignedInAccount();
+                                    _ = getter.DisplaySignedInAccount();
                                     WriteToken(options.TokenFile, result.IdToken);
                                 }
                             });

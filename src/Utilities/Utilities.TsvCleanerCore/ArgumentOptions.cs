@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace Psu.Tools.ps
+namespace Utilities.TsvCleanerCore
 {
     /// <summary>
     /// Defines the <see cref="ArgumentOptions" />.

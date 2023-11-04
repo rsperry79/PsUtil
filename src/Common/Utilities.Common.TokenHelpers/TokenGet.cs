@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Microsoft.Identity.Client;
 
-using Microsoft.Identity.Client;
+using System;
+using System.Threading.Tasks;
 
 namespace Utilities.Common.TokenHelpers
 {
@@ -19,7 +19,7 @@ namespace Utilities.Common.TokenHelpers
             PublicClientApplicationOptions appConfig = config.PublicClientApplicationOptions;
             IPublicClientApplication app = PublicClientApplicationBuilder.CreateWithApplicationOptions(appConfig).Build();
 
-            this.tokenAcquisitionHelper = new PublicAppUsingDeviceCodeFlow(app);
+            tokenAcquisitionHelper = new PublicAppUsingDeviceCodeFlow(app);
         }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace Utilities.Common.TokenHelpers
         /// <returns>The <see cref="Task{string}"/></returns>
         public async Task<AuthenticationResult> GetToken(bool clipboard, string emailRecipents)
         {
-            this.authenticationResult = await this.tokenAcquisitionHelper.AcquireATokenFromCacheOrDeviceCodeFlowAsync(Scopes, clipboard, emailRecipents).ConfigureAwait(false);
-            if (this.authenticationResult != null)
+            authenticationResult = await tokenAcquisitionHelper.AcquireATokenFromCacheOrDeviceCodeFlowAsync(Scopes, clipboard, emailRecipents).ConfigureAwait(false);
+            if (authenticationResult != null)
             {
                 // string idToken = this.authenticationResult.IdToken;
-                return this.authenticationResult;
+                return authenticationResult;
             }
 
             return null;
@@ -63,7 +63,7 @@ namespace Utilities.Common.TokenHelpers
         public string DisplaySignedInAccount()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            string message = $"{this.authenticationResult.Account.Username} successfully signed-in";
+            string message = $"{authenticationResult.Account.Username} successfully signed-in";
             Console.WriteLine(message);
             return message;
         }

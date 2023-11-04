@@ -1,8 +1,8 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.IdentityModel.Tokens;
+
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Text;
-
-using Microsoft.IdentityModel.Tokens;
 
 namespace Utilities.Common.TokenHelpers
 {
@@ -65,11 +65,11 @@ namespace Utilities.Common.TokenHelpers
             }
 
             StringBuilder sb = new StringBuilder(token.Length);
-            sb.Append(updatedTokenParts[0]);
-            sb.Append('.');
-            sb.Append(originalTokenParts[1]);
-            sb.Append('.');
-            sb.Append(originalTokenParts[2]);
+            _ = sb.Append(updatedTokenParts[0]);
+            _ = sb.Append('.');
+            _ = sb.Append(originalTokenParts[1]);
+            _ = sb.Append('.');
+            _ = sb.Append(originalTokenParts[2]);
 
             return sb.ToString();
         }

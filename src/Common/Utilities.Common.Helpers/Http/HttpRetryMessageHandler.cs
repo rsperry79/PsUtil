@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Utilities.Common.Helpers
+namespace Utilities.Common.Helpers.Http
 {
     /// <summary>
     /// Defines the <see cref="HttpRetryMessageHandler" />.

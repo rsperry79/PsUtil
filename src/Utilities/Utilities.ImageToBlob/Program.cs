@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Utilities.Common.Helpers;
+using Utilities.Common.Helpers.Setup;
 
 namespace Utilities.ImageToBlob
 {
@@ -32,7 +33,7 @@ namespace Utilities.ImageToBlob
             string baseDir = Environment.CurrentDirectory;
             try
             {
-                Parser.Default.ParseArguments<ArgumentOptions>(args)
+                _ = Parser.Default.ParseArguments<ArgumentOptions>(args)
                          .WithParsed(options =>
                          {
                              Log.SetLogFileLocation(options.LogFile.Trim());
@@ -44,7 +45,7 @@ namespace Utilities.ImageToBlob
                              SetupBlobStorage(options);
 
                              ConcurrentBag<string> proccessedLines = new ConcurrentBag<string>();
-                             Parallel.ForEach(input, line =>
+                             _ = Parallel.ForEach(input, line =>
                              {
                                  string proccessed = ProcessAsync(line, int.Parse(options.ImagePosition, CultureInfo.InvariantCulture), options.SetFolder).Result;
                                  if (proccessed != null)
@@ -57,7 +58,7 @@ namespace Utilities.ImageToBlob
                              Directory.SetCurrentDirectory(baseDir);
                              File.WriteAllLines(options.ResultsFile, proccessedLines.ToArray());
 
-                             // Write logfile
+                             // Write log file
                              Log.Write(options.LogFile);
                          });
 
@@ -115,10 +116,10 @@ namespace Utilities.ImageToBlob
                     processed = fields[index];
                 }
 
-                sb.Append($"{processed}");
+                _ = sb.Append($"{processed}");
                 if (index != fields.Length - 1)
                 {
-                    sb.Append("\t");
+                    _ = sb.Append('\t');
                 }
             }
 

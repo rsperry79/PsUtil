@@ -6,7 +6,7 @@ namespace Frameworks
     {
         [Option(
         's',
-        "Stanard",
+        "Standard",
         Required = true,
         HelpText = "Standard Results File"
         )]

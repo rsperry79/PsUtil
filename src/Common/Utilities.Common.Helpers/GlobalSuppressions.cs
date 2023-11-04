@@ -5,7 +5,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Intended", Scope = "member", Target = "~M:Utilities.Common.Helpers.KeyvaultLoader.GetSecret(System.String)~System.String")]
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1054:Uri parameters should not be strings", Justification = "Intended", Scope = "member", Target = "~M:Utilities.Common.Helpers.CoreUtils.OpenDeviceCode(System.String,System.String)")]

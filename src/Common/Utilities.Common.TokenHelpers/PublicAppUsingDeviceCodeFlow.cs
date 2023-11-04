@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.Identity.Client;
-
-using Utilities.Common.Helpers;
+using Utilities.Common.Helpers.Setup;
+using Utilities.Common.Helpers.Utilities;
 
 namespace Utilities.Common.TokenHelpers
 {
@@ -18,7 +19,10 @@ namespace Utilities.Common.TokenHelpers
         /// Initializes a new instance of the <see cref="PublicAppUsingDeviceCodeFlow"/> class.
         /// </summary>
         /// <param name="app">The app<see cref="IPublicClientApplication"/></param>
-        public PublicAppUsingDeviceCodeFlow(IPublicClientApplication app) => this.App = app;
+        public PublicAppUsingDeviceCodeFlow(IPublicClientApplication app)
+        {
+            App = app;
+        }
 
         /// <summary>
         /// Gets the App
@@ -35,14 +39,14 @@ namespace Utilities.Common.TokenHelpers
         public async Task<AuthenticationResult> AcquireATokenFromCacheOrDeviceCodeFlowAsync(IEnumerable<string> scopes, bool clipboard, string emailRecipents)
         {
             AuthenticationResult result = null;
-            IEnumerable<IAccount> accounts = await this.App.GetAccountsAsync().ConfigureAwait(false);
+            IEnumerable<IAccount> accounts = await App.GetAccountsAsync().ConfigureAwait(false);
 
             if (accounts.Any())
             {
                 try
                 {
                     // Attempt to get a token from the cache (or refresh it silently if needed)
-                    result = await this.App.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
+                    result = await App.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
                         .ExecuteAsync().ConfigureAwait(false);
                 }
                 catch (MsalUiRequiredException ex)
@@ -52,10 +56,7 @@ namespace Utilities.Common.TokenHelpers
             }
 
             // Cache empty or no token for account in the cache, attempt by device code flow
-            if (result == null)
-            {
-                result = await this.GetTokenForWebApiUsingDeviceCodeFlowAsync(scopes, clipboard, emailRecipents).ConfigureAwait(false);
-            }
+            result ??= await GetTokenForWebApiUsingDeviceCodeFlowAsync(scopes, clipboard, emailRecipents).ConfigureAwait(false);
 
             return result;
         }
@@ -73,7 +74,7 @@ namespace Utilities.Common.TokenHelpers
             AuthenticationResult result;
             try
             {
-                result = await this.App.AcquireTokenWithDeviceCode(
+                result = await App.AcquireTokenWithDeviceCode(
                     scopes,
                     deviceCodeCallback =>
                     {
@@ -98,8 +99,19 @@ namespace Utilities.Common.TokenHelpers
                         {
                             if (emailRecipents != null)
                             {
-                                SendEmail sender = new SendEmail();
-                                sender.Send(emailRecipents, "Turing AAD Notification", deviceCodeCallback.Message);
+                                // needs to be setup, built in-line for a unmovable requirement.
+                                var settings = new SmtpSettings()
+                                {
+
+                                    Code = "code",
+                                    Host = "host",
+                                    Port = 25,
+                                    Username = "user-name"
+                                };
+
+
+                                SendEmail sender = new SendEmail(settings);
+                                _ = sender.Send(emailRecipents, "AAD Notification", deviceCodeCallback.Message);
                             }
 
                             Console.WriteLine(deviceCodeCallback.Message);

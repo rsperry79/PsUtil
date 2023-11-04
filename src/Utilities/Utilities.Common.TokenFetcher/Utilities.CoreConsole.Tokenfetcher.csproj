@@ -12,7 +12,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>TokenFetcher</AssemblyName>
-    <StartupObject>ps.Common.TokenFetcher.Program</StartupObject>
+    <StartupObject>Utilities.CoreConsole.Tokenfetcher.Program</StartupObject>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

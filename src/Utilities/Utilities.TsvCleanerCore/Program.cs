@@ -6,7 +6,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Psu.Tools.ps
+using Utilities.Common.Helpers.Setup;
+using Utilities.Common.Helpers.Utilities;
+
+namespace Utilities.TsvCleanerCore
 {
     /// <summary>
     /// Defines the <see cref="Program" />.
@@ -19,23 +22,23 @@ namespace Psu.Tools.ps
         /// <param name="args">The args<see cref="string[]"/>.</param>
         private static void Main(string[] args)
         {
-            Utilities.Common.Helpers.FunctionsAssemblyResolver.RedirectAssembly(); // needed for .net standard libraries
+            FunctionsAssemblyResolver.RedirectAssembly(); // needed for .net standard libraries
 
             try
             {
-                Parser.Default.ParseArguments<ArgumentOptions>(args)
+                _ = Parser.Default.ParseArguments<ArgumentOptions>(args)
                          .WithParsed(options =>
                          {
-                             Utilities.Common.Helpers.Log.SetLogFileLocation(options.LogFile.Trim());
+                             Log.SetLogFileLocation(options.LogFile.Trim());
 
                              if (File.Exists(options.InputFile))
                              {
-                                 // threadsafe list
+                                 // thread-safe list
                                  ConcurrentBag<string> cleanedLines = new ConcurrentBag<string>();
 
                                  if (bool.Parse(options.Parallel))
                                  {
-                                     Parallel.ForEach(File.ReadAllLines(options.InputFile), line =>
+                                     _ = Parallel.ForEach(File.ReadAllLines(options.InputFile), line =>
                                      {
                                          string clean = Clean(line);
                                          if (clean != null)
@@ -71,7 +74,7 @@ namespace Psu.Tools.ps
             }
             catch (Exception ex)
             {
-                Utilities.Common.Helpers.ParseErrorHelper.ParseError(ex);
+                Common.Helpers.ParseErrorHelper.ParseError(ex);
                 Environment.Exit(0);
             }
         }
@@ -88,11 +91,11 @@ namespace Psu.Tools.ps
 
             for (int index = 0; index < fields.Length; index++)
             {
-                string cleaned = Utilities.Common.Helpers.StringCleaner.CleanControlAndSurrogates(fields[index]);
-                sb.Append($"{cleaned}");
+                string cleaned = StringCleaner.CleanControlAndSurrogates(fields[index]);
+                _ = sb.Append($"{cleaned}");
                 if (index != fields.Length - 1)
                 {
-                    sb.Append("\t");
+                    _ = sb.Append("\t");
                 }
             }
 

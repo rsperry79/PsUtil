@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Utilities.Common.Helpers
+namespace Utilities.Common.Helpers.Utilities
 {
     /// <summary>
     /// Defines the <see cref="StringCleaner" />.
@@ -23,7 +23,6 @@ namespace Utilities.Common.Helpers
 
                 bool isDouble = double.TryParse(toClean, out double dNumber);
 
-
                 if (!firstline && !isDouble && !isInt)
                 {
                     clean.Add('\"');
@@ -42,7 +41,6 @@ namespace Utilities.Common.Helpers
                     }
                 }
 
-
                 foreach (char letter in dirtyArray)
                 {
 
@@ -57,7 +55,6 @@ namespace Utilities.Common.Helpers
                 {
                     clean.Add('\"');
                 }
-
 
                 return new string(clean.ToArray());
             }

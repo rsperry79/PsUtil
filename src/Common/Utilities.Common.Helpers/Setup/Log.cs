@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Utilities.Common.Helpers
+namespace Utilities.Common.Helpers.Setup
 {
     /// <summary>
     /// Defines the <see cref="Log" />.
@@ -31,12 +31,12 @@ namespace Utilities.Common.Helpers
         private static MemoryTarget memoryTarget;
 
         /// <summary>
-        /// Defines the logfile.
+        /// Defines the log file.
         /// </summary>
         private static FileTarget logfile;
 
         /// <summary>
-        /// Defines the logconsole.
+        /// Defines the log console.
         /// </summary>
         private static ColoredConsoleTarget logconsole;
 

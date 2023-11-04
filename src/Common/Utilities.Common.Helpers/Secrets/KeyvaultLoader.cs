@@ -6,7 +6,9 @@ using Microsoft.Azure.Services.AppAuthentication;
 
 using System;
 
-namespace Utilities.Common.Helpers
+using Utilities.Common.Helpers.Setup;
+
+namespace Utilities.Common.Helpers.Secrets
 {
     /// <summary>
     /// Defines the <see cref="KeyvaultLoader" />.
@@ -35,8 +37,7 @@ namespace Utilities.Common.Helpers
             if (authFile != null && System.IO.File.Exists(authFile))
             {
                 AzureCredentials credentials = SdkContext.AzureCredentialsFactory.FromFile(authFile);
-
-                IAzure azure = Azure
+                _ = Azure
                     .Configure()
                     .Authenticate(credentials)
                     .WithDefaultSubscription();
@@ -70,7 +71,6 @@ namespace Utilities.Common.Helpers
 
             // Attempt to get from azure devops keyvault task.
             string temp = null;
-
 
             try
             {
