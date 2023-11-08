@@ -25,7 +25,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="failed 1.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="FileCleaners.psd1" />
     <Compile Include="FileCleaners.psm1" />

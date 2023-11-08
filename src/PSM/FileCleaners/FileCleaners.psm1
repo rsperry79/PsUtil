@@ -57,3 +57,39 @@ function Remove-EmptyDirs {
 		}
 	} while ($dirs.count -gt 0)
 }
+
+
+
+<#
+	Moves files that LR failed to import to the specified directory and all subdirectories.
+#>
+function Move-LRFailed {
+	Param
+	(	
+		[Parameter(Mandatory = $True, Position = 0)]
+		[PSDefaultValue(Help = 'Failure file to get ')]
+		[string]$FName,
+		
+		[Parameter(Mandatory = $False, ValueFromPipeline = $False, ValueFromPipelinebyPropertyName = $True, Position = 1)]
+		[PSDefaultValue(Help = 'Path to search. Default=CWD')]
+		[string[]]$Path = '.'
+	)
+
+	New-Item -ItemType Directory -Force -Path $Path
+	$outDir = Get-Item $Path
+
+	foreach($line in Get-Content $FName) {
+		$trim = Get-Item $line.Trim()
+		$exists = Test-Path $trim 
+		if($exists)
+		{
+			$outputFileName = Split-Path $trim -leaf
+			$outputFile = Join-Path -Path  $outDir -ChildPath $outputFileName
+			
+			Write-Host "Moving $line to $outputFile"
+			Copy-Item -Path $trim -Destination $outputFile
+		}
+	}
+
+	
+}
