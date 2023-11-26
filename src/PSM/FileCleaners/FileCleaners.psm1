@@ -75,21 +75,23 @@ function Move-LRFailed {
 		[string[]]$Path = '.'
 	)
 
-	New-Item -ItemType Directory -Force -Path $Path
-	$outDir = Get-Item $Path
-
-	foreach($line in Get-Content $FName) {
-		$trim = Get-Item $line.Trim()
-		$exists = Test-Path $trim 
-		if($exists)
+		New-Item -ItemType Directory -Force -Path $Path
+		$outDir = Get-Item $Path
+		$count = 0;
+		foreach($line in Get-Content $FName) {
+		if($line)
 		{
-			$outputFileName = Split-Path $trim -leaf
-			$outputFile = Join-Path -Path  $outDir -ChildPath $outputFileName
+			$count++;
+			$trim = Get-Item $line.Trim()
+			$exists = Test-Path $trim 
+			if($exists)
+			{
+				$outputFileName = Split-Path $trim -leaf
+				$outputFile = Join-Path -Path  $outDir -ChildPath $outputFileName
 			
-			Write-Host "Moving $line to $outputFile"
-			Copy-Item -Path $trim -Destination $outputFile
+				Write-Host "$count Moving $line to $outputFile"
+				Copy-Item -Path $trim -Destination $outputFile
+			}
 		}
 	}
-
-	
 }
