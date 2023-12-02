@@ -14,23 +14,20 @@ function Remove-FoldersByName {
 	)
 
 	Write-Output $FName
-	do {
+
+	$dirs = Get-ChildItem $Path -directory -recurse | 
+		Where-Object { (Get-ChildItem $_.name) }  -eq $FName | 
+		Select-Object -expandproperty FullName
+			
+	ForEach ($dir in $dirs) 
+	{
 		try {
-			$dirs = Get-ChildItem $Path -directory -recurse | 
-			Where-Object { (Get-ChildItem $_.name) }  -eq $FName | 
-			Select-Object -expandproperty FullName
-			$dirs | Foreach-Object { Remove-Item $_ }
-		}
+			Remove-Item $dir 
+		}    
 		catch {
-			$valid = Test-Path -Path $_ -IsValid
-			if ($valid -eq $false) {
-				Write-Host "Invalid Path: $_"
-			}
-			else {
-				Write-Output $_
-			}
+			Write-Output $PSItem.Exception.Message
 		}
-	} while ($dirs.count -gt 0)
+	}
 }
 
 <#
