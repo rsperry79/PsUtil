@@ -44,21 +44,20 @@ function Remove-EmptyDirs {
 		[string[]]$Path = '.'
 	)
 
-	do {
-		$dirs = Get-ChildItem $Path -directory -recurse | 
-		Where-Object { (Get-ChildItem $_.fullName -force).count -eq 0 }  | 
-		Select-Object -expandproperty FullName
+	$dirs = Get-ChildItem $Path -directory -recurse | 
+	Where-Object { (Get-ChildItem $_.fullName -force).count -eq 0 }  | 
+	Select-Object -expandproperty FullName
 
+	ForEach ($dir in $dirs) 
+	{
 		try {
-			$dirs | Foreach-Object { Remove-Item $_ }
+			Remove-Item $dir 
 		}    
 		catch {
-				Write-Output $PSItem.Exception.Message
+			Write-Output $PSItem.Exception.Message
 		}
-	} while ($dirs.count -gt 0)
+	}
 }
-
-
 
 <#
 	Moves files that LR failed to import to the specified directory and all subdirectories.
