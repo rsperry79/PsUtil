@@ -14,7 +14,8 @@ function Remove-FoldersByName {
 	)
 
 
-	$dirs = Get-ChildItem -Path $Path -Filter $FName -directory -Recurse -Force |
+	$dirs =
+		Get-ChildItem -Path $Path -Filter $FName -directory -Recurse -Force |
 		Select-Object -expandproperty FullName
 		
 	Write-Output $dirs.count
