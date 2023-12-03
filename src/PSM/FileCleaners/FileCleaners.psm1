@@ -13,16 +13,17 @@ function Remove-FoldersByName {
 		[string]$FName = 'Node_Modules'
 	)
 
-	Write-Output $FName
 
-	$dirs = Get-ChildItem $Path -directory -recurse | 
-		Where-Object { (Get-ChildItem $_.name) }  -eq $FName | 
+	$dirs = Get-ChildItem -Path $Path -Filter $FName -directory -Recurse -Force |
 		Select-Object -expandproperty FullName
+		
+	Write-Output $dirs.count
 			
 	ForEach ($dir in $dirs) 
 	{
+		Write-Output $dir
 		try {
-			Remove-Item $dir 
+			Remove-Item $dir  -Recurse -Force
 		}    
 		catch {
 			Write-Output $PSItem.Exception.Message
@@ -43,7 +44,7 @@ function Remove-EmptyDirs {
 
 	$dirs = Get-ChildItem $Path -directory -recurse | 
 	Where-Object { (Get-ChildItem $_.fullName -force).count -eq 0 }  | 
-	Select-Object -expandproperty FullName
+	Select-Object $_ -expandproperty FullName
 
 	ForEach ($dir in $dirs) 
 	{
